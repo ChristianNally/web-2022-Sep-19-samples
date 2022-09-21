@@ -10,6 +10,7 @@ console.log('after alter:', myObj);
 
 const reassignObj = function(obj) {
   obj = { 'something': 'new' };
+  console.log(`inside reassign`, obj);
 };
 
 reassignObj(myObj);
