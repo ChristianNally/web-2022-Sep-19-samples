@@ -3,6 +3,7 @@
 // 2. if only one argument, no need for parens
 // 3. if only one line of code, no need for curly braces
 // 4. if only one line of code, that line is implicitly returned from the function
+// 5. does not create the variable `this`
 
 const sayHello = function(name) {
   return `hello there ${name}`;
