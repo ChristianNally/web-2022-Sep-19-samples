@@ -1,5 +1,6 @@
 // pull in whichever assert library you'd like to use
-const assert = require('assert');
+//const assert = require('assert');
+const assert = require('chai').assert;
 
 // pull in the main functions that will be tested
 const functionCollection = require('../hello-world.js');
@@ -35,6 +36,22 @@ describe('sayGoodbye Tests', () => {
   it('returns the expected salutation from sayGoodbye for a second example', () => {
     const expected = 'Goodbye, World!!';
     const actual = sayGoodbye('World!!');
+    assert.strictEqual(actual, expected);  
+  });  
+
+});
+
+describe('saySeeYaLater Tests', () => {
+
+  it('returns the expected salutation from sayGoodbye', () => {
+    const expected = 'SeeYaLater, World';
+    const actual = saySeeYaLater('World');
+    assert.strictEqual(actual, expected);  
+  });
+  
+  it('returns the expected salutation from sayGoodbye for a second example', () => {
+    const expected = 'SeeYaLater, World!!';
+    const actual = saySeeYaLater('World!!');
     assert.strictEqual(actual, expected);  
   });  
 
