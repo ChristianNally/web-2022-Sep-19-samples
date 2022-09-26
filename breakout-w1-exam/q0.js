@@ -16,7 +16,10 @@
  *    9
  */
 const count = function(arr) {
+  const length = arr.length;
+  return length;
 
+  // return arr.length;
 };
 
 /* ===========================================================================
@@ -32,6 +35,25 @@ const count = function(arr) {
  *    36
  */
 const sum = function(arr) {
+  // create a variable to hold our running total
+  // let runningTotal = 0;
+
+  // // look at each element of the array
+  // for (const number of arr) {
+  //   // add each element to our running total
+  //   runningTotal = runningTotal + number;
+  //   // runningTotal += number;
+  // }
+
+  // // return the running total
+  // return runningTotal;
+
+  return arr.reduce((runningTotal, number) => {
+    return runningTotal + number;
+  }, 0);
+
+  // return arr.reduce((a, c) => a + c, 0);
+
 
 };
 
@@ -39,6 +61,12 @@ const sum = function(arr) {
 const round = function(number) {
   return Math.round(number * 100) / 100;
 };
+
+// 3.141587
+// 314.1587
+// 314
+// 3.14
+
 
 /* ===========================================================================
  * MEAN - the average value of numbers in a list
@@ -54,7 +82,18 @@ const round = function(number) {
  *    4
  */
 const mean = function(arr) {
+  if (arr.length === 0) {
+  // if (!arr.length) {
+    return null;
+  }
 
+  // average = sumOfAllElements / numberOfElements
+  const sumOfAllElements = sum(arr);
+  const numberOfElements = count(arr);
+
+  const average = sumOfAllElements / numberOfElements;
+
+  return round(average);
 };
 
 // Don't change below:
