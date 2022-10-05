@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const languages = require('./languages.json');
 
 const port = 3080;
 const app = express();
@@ -41,7 +40,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(morgan('dev'));
-app.use(cookieParser()); // req, res, next
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
 // GET /login
@@ -60,16 +59,6 @@ app.post('/login', (req, res) => {
   if (!email || !password) {
     return res.status(400).send('please include email AND password');
   }
-
-  // look up the user based on their email
-  // let user = null;
-  // for (const userId in users) {
-  //   const userFromDb = users[userId];
-  //   if (userFromDb.email === email) {
-  //     // we found our user!!
-  //     user = userFromDb;
-  //   }
-  // }
 
   const user = findUserByEmail(email);
 
@@ -138,7 +127,7 @@ app.post('/logout', (req, res) => {
   res.clearCookie('userId');
 
   // send the user somewhere
-  res.redirect('/home');
+  res.redirect('/login');
 });
 
 // GET /protected
@@ -158,43 +147,6 @@ app.get('/protected', (req, res) => {
   };
 
   res.render('protected', templateVars);
-});
-
-// GET /about
-app.get('/about', (req, res) => {
-  // res.cookie('languageSelection', 'fr');
-  
-  const languageSelection = req.cookies.languageSelection || 'ko';
-
-  const templateVars = {
-    heading: languages.aboutHeadings[languageSelection],
-    body: languages.aboutBodies[languageSelection]
-  };
-
-  res.render('about', templateVars); // render(templateName, locals)
-});
-
-// GET /home
-app.get('/home', (req, res) => {
-  // console.log('req.cookies:', req.cookies);
-
-  const languageSelection = req.cookies.languageSelection || 'ko';
-
-  const templateVars = {
-    heading: languages.homeHeadings[languageSelection],
-    body: languages.homeBodies[languageSelection]
-  };
-
-  res.render('home', templateVars);
-});
-
-// GET /languages/:language
-app.get('/languages/:language', (req, res) => {
-  const language = req.params.language;
-
-  res.cookie('languageSelection', language);
-
-  res.redirect('/home');
 });
 
 app.listen(port, () => {
