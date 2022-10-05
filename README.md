@@ -8,3 +8,4 @@
 * [W02D1 - TDD, CommonJS, and NPM](/w02d1/)
 * [W02D2 - Asynchronous Control Flow](/w02d2/)
 * [W03D1 - Web Servers 101](/w03d1/)
+* [W03D3 - HTTP Cookies & User Authentication](/w03d3/)
