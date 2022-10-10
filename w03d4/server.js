@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const languages = require('./languages.json');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bcrypt = require('bcryptjs');
 
 const port = 3080;
 const app = express();
@@ -10,7 +11,7 @@ const users = {
   'abcd': {
     id: 'abcd',
     email: 'jstamos@mail.com',
-    password: '1234'
+    password: '$2a$10$7UD8SECZiHCTtmf6WL9iY.G76/yFIpTTHTCatV73FUARV0gd8LIsu'
   },
   'efgh': {
     id: 'efgh',
@@ -41,16 +42,29 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(morgan('dev'));
-app.use(cookieParser()); // req, res, next
 app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser());
+app.use(cookieSession({
+  name: 'whateverIWant',
+  keys: ['ouit9haefhaiosdhjfo;asjdf']
+}));
+
+app.use((req, res, next) => {
+  console.log('I am above the next');
+  next();
+
+  console.log('I am below the next');
+});
 
 // GET /login
 app.get('/login', (req, res) => {
+  console.log('inside the login function');
   res.render('login');
 });
 
 // POST /login
 app.post('/login', (req, res) => {
+  console.log('inside the login function');
   // console.log('req.body', req.body);
 
   const email = req.body.email;
@@ -58,18 +72,10 @@ app.post('/login', (req, res) => {
 
   // check if email or password are NOT defined
   if (!email || !password) {
-    return res.status(400).send('please include email AND password');
+    // return res.status(400).send('<html><body><a href="/login">Login</a></body></html>');
+    // res.status(400).redirect('/login');
+    res.status(400).send('please include email AND password');
   }
-
-  // look up the user based on their email
-  // let user = null;
-  // for (const userId in users) {
-  //   const userFromDb = users[userId];
-  //   if (userFromDb.email === email) {
-  //     // we found our user!!
-  //     user = userFromDb;
-  //   }
-  // }
 
   const user = findUserByEmail(email);
 
@@ -79,12 +85,16 @@ app.post('/login', (req, res) => {
   }
 
   // check if the provided password is correct
-  if (user.password !== password) {
+  const result = bcrypt.compareSync(password, user.password);
+
+  if (!result) {
+  // if (!bcrypt.compareSync(password, user.password)) {
     return res.status(400).send('wrong password');
   }
 
   // log the user in (aka set a cookie)
-  res.cookie('userId', user.id);
+  // res.cookie('userId', user.id);
+  req.session.userId = user.id;
 
   // post-redirect-get
   res.redirect('/protected');
@@ -116,10 +126,13 @@ app.post('/register', (req, res) => {
   // create a new user object
   const id = generateUniqueId();
 
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+
   const user = {
     id,
     email,
-    password
+    password: hash
   };
 
   // update the users object with our new user
@@ -127,7 +140,8 @@ app.post('/register', (req, res) => {
   console.log(users);
 
   // do we log the user in (set a cookie) OR do we redirect the user to /login
-  res.cookie('userId', user.id);
+  // res.cookie('userId', user.id);
+  req.session.userId = user.id;
 
   res.redirect('/protected');
 });
@@ -135,18 +149,21 @@ app.post('/register', (req, res) => {
 // POST /logout
 app.post('/logout', (req, res) => {
   // clear the user's cookie
-  res.clearCookie('userId');
+  // res.clearCookie('userId');
+  req.session = null;
 
   // send the user somewhere
-  res.redirect('/home');
+  res.redirect('/login');
 });
 
 // GET /protected
 app.get('/protected', (req, res) => {
-  const userId = req.cookies.userId
+  // const userId = req.cookies.userId;
+  const userId = req.session.userId;
 
   if (!userId) {
-    return res.status(401).send('you are not authorized to be here');
+    // return res.status(401).send('you are not authorized to be here');
+    return res.redirect('/login');
   }
 
   if (!users[userId]) {
@@ -158,43 +175,6 @@ app.get('/protected', (req, res) => {
   };
 
   res.render('protected', templateVars);
-});
-
-// GET /about
-app.get('/about', (req, res) => {
-  // res.cookie('languageSelection', 'fr');
-  
-  const languageSelection = req.cookies.languageSelection || 'ko';
-
-  const templateVars = {
-    heading: languages.aboutHeadings[languageSelection],
-    body: languages.aboutBodies[languageSelection]
-  };
-
-  res.render('about', templateVars); // render(templateName, locals)
-});
-
-// GET /home
-app.get('/home', (req, res) => {
-  // console.log('req.cookies:', req.cookies);
-
-  const languageSelection = req.cookies.languageSelection || 'ko';
-
-  const templateVars = {
-    heading: languages.homeHeadings[languageSelection],
-    body: languages.homeBodies[languageSelection]
-  };
-
-  res.render('home', templateVars);
-});
-
-// GET /languages/:language
-app.get('/languages/:language', (req, res) => {
-  const language = req.params.language;
-
-  res.cookie('languageSelection', language);
-
-  res.redirect('/home');
 });
 
 app.listen(port, () => {
