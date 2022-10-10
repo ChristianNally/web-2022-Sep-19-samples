@@ -1,5 +1,4 @@
 const functions = require('./promise-generator');
-
 const returnPromise = functions.returnPromise;
 const returnRejectedPromise = functions.returnRejectedPromise;
 
@@ -20,7 +19,7 @@ returnPromise('one',1000)
   })
   .then((data) => {
     console.log(data);
-    return returnRejectedPromise('four',1000);
+    return returnPromise('four',1000);
   })
   .then((data) => {
     console.log(data);
@@ -30,7 +29,12 @@ returnPromise('one',1000)
     console.log(data);
     return returnPromise('six',1000);
   })
+  .then((data6) => {
+    console.log('data6', data6);
+  })
   .catch((err) => {
     // throw err;
     console.log('err:',err);
   });
+
+  console.log('end of the main thread');

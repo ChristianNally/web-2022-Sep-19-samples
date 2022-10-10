@@ -7,6 +7,8 @@ const rlp = readline.createInterface({
 
 const answers = [];
 
+console.log('near the start of the main thread');
+
 rlp.questionAsync('What do you think of Node.js? ')
   .then((answer) => {
     answers.push(answer);
@@ -15,10 +17,6 @@ rlp.questionAsync('What do you think of Node.js? ')
   .then((answer) => {
     answers.push(answer);
     return rlp.questionAsync('What\'s your favourite activity? ');
-  })
-  .then((answer) => {
-    answers.push(answer);
-    return rlp.questionAsync('How fuzzy are monkeys? ');
   })
   .then((answer) => {
     answers.push(answer);
@@ -50,7 +48,10 @@ rlp.questionAsync('What do you think of Node.js? ')
     console.log();
     console.log('Your profile is ready!!');
     console.log(`My name is ${name} and I really like ${activity}! I listen to ${music} while eating ${food} during ${meal} and playing ${sport}... and I think Node is ${node}!!`);
+    console.log('now the event loop has also run out of code to run.');
   })
   .catch((err)=>{
     console.log(err);
   });
+
+  console.log('end of the main thread');
