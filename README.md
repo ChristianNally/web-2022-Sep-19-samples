@@ -12,3 +12,4 @@
 * [W03D4 - Security & Real World HTTP Servers](/w03d4/)
 * [W04D1 - Intro to CSS](/w04d1/)
 * [W04D2 - Client Side JavaScript & jQuery](/w04d2/)
+* [W04D3 - AJAX](/w04d3/)
