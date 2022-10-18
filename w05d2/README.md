@@ -57,12 +57,12 @@
 ### Task: Convert Two Spreadsheets into an ERD
 - [Gist with instruction](https://gist.github.com/andydlindsay/20e7305e853bad7b587f294b054cf8de)
 
-![Authors/Publishers ERD]()
+![Authors/Publishers ERD](https://raw.githubusercontent.com/ChristianNally/web-2022-Sep-19-west-samples/main/w05d2/w05d2%20lecture.drawio.png)
 
 ### Student Suggestion: Coffee Distributor
 We created an ERD for a fictional coffee distributor:
 
-![Coffee Distributor]()
+![Coffee Distributor](https://raw.githubusercontent.com/ChristianNally/web-2022-Sep-19-west-samples/main/w05d2/coffee%20distributor.drawio.png)
 
 ### Useful Links
 * [Database Normalization](https://en.wikipedia.org/wiki/Database_normalization)
