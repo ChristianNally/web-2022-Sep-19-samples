@@ -5,7 +5,7 @@
 - [x] Naming Conventions
 - [x] Data Types
 - [x] Relationship Types
-<!-- - [ ] Design Concepts -->
+- [ ] Design Concepts
 - [x] Entity Relationship Diagrams
 - [x] Convert 2 Spreadsheets into an ERD
 - [x] Student Suggestion ERD(s)

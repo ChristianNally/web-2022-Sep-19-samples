@@ -13,3 +13,4 @@
 * [W04D1 - Intro to CSS](/w04d1/)
 * [W04D2 - Client Side JavaScript & jQuery](/w04d2/)
 * [W04D3 - AJAX](/w04d3/)
+* [W05D2 - Database Design](/w05d2/)
