@@ -89,8 +89,8 @@ app.get('/login/:id', (req, res) => {
 - Use Git best practices (ask a mentor for clarification if you need it)
 - Use branches
 
-### DO NOT CODE ON MASTER
-- I repeat, do not code on master
+### DO NOT CODE ON MASTER/MAIN
+- I repeat, do not code on master/main
 
 ### Splitting up the Work
 - Horizontally - whole team working on front-end or back-end at the same time
@@ -100,10 +100,3 @@ app.get('/login/:id', (req, res) => {
 ### Communication
 - Make sure to communicate with your team members
 - Use Slack, iMessage, Google Hangouts, whatever... just make sure that everyone is on the same page
-
-### Github Projects
-- Github has a built-in project board (similar to a kanban board)
-
-### Deployment
-- Decide if you want/need to deploy your application to the cloud
-- Ask a mentor for assistance/advice if your team decides to deploy
