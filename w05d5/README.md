@@ -9,35 +9,7 @@
 * git/github practice
 * apply what we've learned
 
-### Pick a Project
-
-### User Stories
-* how a user will interact with our app
-* As a _____, I can _____, because _______
-
-* As a logged-in user, I can see a list of maps of my local area, because I'm interested in things around me
-* As a hungry logged-in user, I can see the menu from a local restaurant, because I'm hungry
-
-planning/user-stories.md
-
-### Nouns === Resources
-* resources are tables
-* create the ERD
-
-planning/ERD.png
-
-### Routes
-* how can people access the data
-* http routes
-* RESTful routes
-* resources are plural
-* actions are singular
-
-GET /all-users-in-the-db
-POST /create-a-new-user
-
-Login   POST  /login
-Register POST /register
+### Example of RESTful routes
 
 Browse  GET   /users
 Read    GET   /users/:id
@@ -45,55 +17,93 @@ Edit    POST  /users/:id
 Add     POST  /users
 Delete  POST  /users/:id/delete
 
-planning/routes.md
+### User Stories
+- A _user story_ describes how users will interact with your application
+- They have the form: As a ______, I want to ______, because ______.
+- eg. As a _user_, I want to _be able to save posts_, because _I want to review them later_.
+- User stories can also be negated: As a _____, I shouldn't be able to ______, because _____.
+- eg. As a _user_, I shouldn't be able to _edit other users posts_, because _I don't own those posts_.
 
-### What are we building?
-* MVP
-* Minimum Viable Product
-* @KV Minimum Viable Demo
-* what is the min set of features we can demo in 5 mins
+### User Scenarios
+- A _user scenario_ is a syntactic alternative to user stories
+- They have the form: Given _____, when ______, then ______.
+- eg. Given _that I am logged in_, when _I click favourite on a post_, then _it is added to my favourites_.
+- You can also chain on an _and_ to user stories/scenarios
+- eg. Given _that I am logged in_, when _I click favourite on a post_, then _it is added to my favourites_ **and** _the save icon will change to indicate success_.
 
-### Login
-* please don't do login/register
+### ERD
+- The user stories provide you with nouns (eg. user, posts, favourites)
+- Use these nouns/entities to build out your database (ie. tables are the nouns from the stories)
+
+### Routes
+- Once you know the resources that you'll have, write out the routes that you'll need to perform BREAD operations on those resources
+- Remember RESTful conventions (they make it much easier)
+
+### MVP vs MVD
+- There is a concept in development of an MVP, the Minimum Viable Product
+- An MVP has just enough features to be useful to a user
+- This concept helps streamline the development process and help keep the team on target
+- For mid-terms, we want to focus on the MVD, the Minimum Viable Demo
+- **If you aren't going to demo it, don't build it**
+
+### Wireframes
+- Draw out the structure of your web pages
+- This will make it much easier to build out these pages later
+- This is also a great opportunity to get input from all of the team members
+- Design matters... however you are a developer, not a designer
+- Get inspiration from websites you visit
+
+### User Login
+- Don't do it
+- Seriously, don't do it
+- We know that you know how to register and login users
 
 ```js
-// http://localhost:3000/login/5
+// do this instead
+app.get('/login/:id', (req, res) => {
+  // using encrypted cookies
+  req.session.user_id = req.params.id;
 
-app.get('/login/:userId', (req, res) => {
-  // set a plain-text cookie
-  res.cookie('user_id', req.params.userId);
-
-  // set an encrypted cookie
-  req.cookies.user_id = req.params.userId;
+  // or using plain-text cookies
+  res.cookie('user_id', req.params.id);
 
   // send the user somewhere
-  res.redirect('/home');
+  res.redirect('/');
 });
 ```
 
-### Wireframes/Mockups
-* what is the website going to look like
-* we are not a design school
-
-planning/home-page.png
-
 ### Tech Choices
-* Back end: Node, postgres, express
-* Front end: HTML, CSS, JS, jQuery, css library (bootstrap)
+- We have made all the tech choices for you
+- Back End: Node and Express
+- Front End: HTML, CSS, JS, jQuery, Bootstrap
 
-### Splitting up the work
-* Vertical - each team member is working on a separate piece of the stack
-* Horizontal - each team member is working on the same layer
-* Pair programming
+### The Mid-term Skeleton
+- Use the provided `node-skeleton` as a template for your project
+- This will get you up and running quickly
 
-### Coding on Main/Master
-* beyond initial setup please don't
-* use branches
-* are you merging locally (git merge my-branch) or in the cloud (git push origin my-branch / pull request)
+### SPA vs Multi-page App
+- These concepts are not mutually exclusive
+- You can choose one or the other or both
+
+### Git
+- Use Git best practices (ask a mentor for clarification if you need it)
+- Use branches
+
+### DO NOT CODE ON MASTER
+- I repeat, do not code on master
+
+### Splitting up the Work
+- Horizontally - whole team working on front-end or back-end at the same time
+- Vertically - divide the work between front-end and back-end
+- Pair Programming - working together on the same tasks
 
 ### Communication
-* please communicate
+- Make sure to communicate with your team members
+- Use Slack, iMessage, Google Hangouts, whatever... just make sure that everyone is on the same page
 
+### Github Projects
+- Github has a built-in project board (similar to a kanban board)
 
-
-
+### Deployment
+- Decide if you want/need to deploy your application to the cloud
+- Ask a mentor for assistance/advice if your team decides to deploy
