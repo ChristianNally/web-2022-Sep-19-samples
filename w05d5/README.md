@@ -11,11 +11,13 @@
 
 ### Example of RESTful routes
 
+```
 Browse  GET   /users
 Read    GET   /users/:id
 Edit    POST  /users/:id
 Add     POST  /users
 Delete  POST  /users/:id/delete
+```
 
 ### User Stories
 - A _user story_ describes how users will interact with your application
