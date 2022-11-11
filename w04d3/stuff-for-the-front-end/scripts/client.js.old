@@ -1,0 +1,38 @@
+console.log('hello');
+
+$(document).ready(() => {
+
+  // find the ordered list in the DOM
+  const $ol = $('#highscore-container');
+
+  // $.ajax({
+  //   url: 'https://my-json-server.typicode.com/andydlindsay/moai-axe-tree/high-scores',
+  //   method: 'GET',
+  // })
+  // .then((highScores) => {
+  //   console.log(highScores);
+  // })
+  // .catch((err) => {})
+
+  $.ajax({
+    url: 'https://my-json-server.typicode.com/andydlindsay/moai-axe-tree/high-scores',
+    method: 'GET',
+    // dataType: 'xml',
+    success: (highScores) => {
+      // console.log('data from server', highScores);
+      for (const highScore of highScores) {
+        console.log('highScore', highScore);
+
+        // create a new li based off the contens of the highScore object
+        const $newLi = $('<li>').text(`${highScore.name} has ${highScore.points}`);
+
+        // append the li to the ordered list
+        $ol.append($newLi);
+      }
+    },
+    error: (error) => {
+      console.log('an error has happened', error);
+    }
+  })
+
+});
