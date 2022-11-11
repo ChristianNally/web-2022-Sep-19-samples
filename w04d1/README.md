@@ -7,11 +7,38 @@
 
 # Semantic HTML
 
+<div></div>
+<span></span>
+
+<h1>Some Text</h1>
+<p>The quick brown monkeyfuzz jumped over etc.</p>
+
 <header></header>
-<main>
-  <article></article>
+<main class="emphasis">
+  <article class="emphasis"></article>
+  <p class="emphasis"></p>
+  <p></p>
+  <p></p>
+  <p></p>
 </main>
 <footer></footer>
+
+
+# CSS examples
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  font-size: 35px;
+  width: 350px;
+}
+
+.emphasis {
+  color: yellow;
+}
+
 
 # Box Model
 
